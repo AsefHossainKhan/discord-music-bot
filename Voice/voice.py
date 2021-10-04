@@ -19,6 +19,7 @@ def is_playing(ctx):
 
 #endregion
 
+#region Queue Part
 class yt:
   def __init__(self, title, url): 
     self.title = title 
@@ -26,6 +27,16 @@ class yt:
 
 myQueue = []
 
+async def play_next(ctx):
+    if (len(myQueue) == 0):
+        await ctx.send("mama toder ar gaan shunamu na ami gelam ga")
+        voice = discord.utils.get(client.voice_clients, guild=ctx.guild)
+        if voice.is_connected():
+            await voice.disconnect()
+    else:
+        current_song = myQueue.pop(0)
+        await play(ctx, current_song.url)
+#endregion
 
 #region commands
 @client.command()
@@ -42,17 +53,17 @@ async def list(ctx):
     for index, item in enumerate(myQueue):
         listString += (f"{index+1}. {item.title} \n")
     await ctx.send(listString)
-        
+
 
 @client.command()
 async def play(ctx, url : str):
+
     current_song_name = BeautifulSoup(urllib.request.urlopen(url).read().decode("utf-8"), features="lxml")
     current_song_name = str(current_song_name.title)[7:-8]
     if is_playing(ctx):
         myQueue.append(yt(current_song_name,url))
         await ctx.send("Mama Gaan ta queue te add kore disi, aitar porei play hobe")
         return
-    #START FROM HERE!!!
     song_there = os.path.isfile("song.mp3")
     try:
         if song_there:
@@ -85,7 +96,7 @@ async def play(ctx, url : str):
             os.rename(file, "song.mp3")
 
     await ctx.send(f"Mama ami akhon ai gaan gaitesi 🎶 → {current_song_name}")
-    voice.play(discord.FFmpegPCMAudio("song.mp3"))
+    voice.play(discord.FFmpegPCMAudio("song.mp3"), after=lambda e: ctx.bot.loop.create_task(play_next(ctx)))
     
 
 
