@@ -4,6 +4,7 @@ import youtube_dl
 import os
 import urllib.request
 from bs4 import BeautifulSoup
+import time
 
 
 client = commands.Bot(command_prefix="*")
@@ -16,6 +17,9 @@ def is_connected(ctx):
 def is_playing(ctx):
     voice_client = discord.utils.get(ctx.bot.voice_clients, guild=ctx.guild)
     return voice_client and voice_client.is_playing()
+
+def voice_client(ctx):
+    return discord.utils.get(ctx.bot.voice_clients, guild=ctx.guild)
 
 #endregion
 
@@ -40,8 +44,10 @@ async def play_next(ctx):
 
 #region commands
 @client.command()
-async def test(ctx, url : str):
-    print("Test")
+async def test(ctx):
+    voice = discord.utils.get(client.voice_clients, guild=ctx.guild)
+    if voice is None:
+        await ctx.author.voice.channel.connect()
 
 
 @client.command()
@@ -49,9 +55,10 @@ async def list(ctx):
     if (len(myQueue) == 0):
         await ctx.send("mama kono gaan nai queue te")
         return
-    listString = ""
+    listString = "```"
     for index, item in enumerate(myQueue):
         listString += (f"{index+1}. {item.title} \n")
+    listString += "```"
     await ctx.send(listString)
 
 
@@ -77,9 +84,8 @@ async def play(ctx, url : str):
         await ctx.send("Age Akta Voice Channel e Dhuk!")
     voiceChannel = ctx.author.voice.channel
     if not is_connected(ctx):
-        await voiceChannel.connect()
+        await voiceChannel.connect(reconnect=True)
     voice = discord.utils.get(client.voice_clients, guild=ctx.guild)
-
     ydl_opts = {
         'format': 'bestaudio/best',
         'postprocessors': [{
@@ -94,6 +100,7 @@ async def play(ctx, url : str):
     for file in os.listdir("./"):
         if file.endswith(".mp3"):
             os.rename(file, "song.mp3")
+
 
     await ctx.send(f"Mama ami akhon ai gaan gaitesi 🎶 → {current_song_name}")
     voice.play(discord.FFmpegPCMAudio("song.mp3"), after=lambda e: ctx.bot.loop.create_task(play_next(ctx)))
@@ -128,9 +135,14 @@ async def resume(ctx):
 
 
 @client.command()
-async def stop(ctx):
+async def skip(ctx):
     voice = discord.utils.get(client.voice_clients, guild=ctx.guild)
     voice.stop()
+
+@client.command()
+async def clear_queue(ctx):
+    myQueue.clear()
+    await ctx.send("Mama queue khali kore disi")
 
 #endregion
 
