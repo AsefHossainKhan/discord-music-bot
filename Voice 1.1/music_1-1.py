@@ -80,6 +80,11 @@ class Player(commands.Cog):
 
     @commands.command()
     async def play(self, ctx, *, song=None):
+        if ctx.author.voice is None:
+            return await ctx.send(
+                "Age Akta Voice Channel e Dhuk!"
+            )
+
         if song is None:
             return await ctx.send("Akta gaan to bolbi!?!")
 
@@ -107,7 +112,7 @@ class Player(commands.Cog):
             if queue_len < 100:
                 self.song_queue[ctx.guild.id].append(song)
                 current_song_name = BeautifulSoup(urllib.request.urlopen(song).read().decode("utf-8"), features="lxml")
-
+                current_song_name = str(current_song_name.title)[7:-8]
                 return await ctx.send(
                     f"Mama {current_song_name} Gaan ta Queue te add kore disi {queue_len+1} position e."
                 )
