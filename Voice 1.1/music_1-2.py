@@ -227,4 +227,5 @@ async def setup():
 
 bot.loop.create_task(setup())
 
-bot.run(os.environ.get("TOKEN"))
+# bot.run(os.environ.get("TOKEN"))
+bot.run("ODkzMTE2NDY2MDc1OTMwNjM0.YVWxhg.-QknPhHlTz6wXLOD1p7bZ5S-Ak0")
