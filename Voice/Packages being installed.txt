@@ -1,4 +1,0 @@
-py -3 -m pip install -U discord.py
-py -m pip install -U discord.py[voice]
-python -m pip install youtube_dl
-python -m pip install ffmpeg
