@@ -1,0 +1,27 @@
+{
+  "name": "discord_bot_js",
+  "version": "1.0.1",
+  "description": "A discord music bot written in JS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Asef Hossain Khan",
+  "license": "ISC",
+  "dependencies": {
+    "@discord-player/downloader": "^3.0.2",
+    "@discord-player/equalizer": "^0.2.1",
+    "@discord-player/extractor": "^4.1.2",
+    "@discord-player/utils": "^0.2.1",
+    "@discordjs/builders": "^1.6.1",
+    "@discordjs/opus": "^0.9.0",
+    "@discordjs/rest": "^1.7.0",
+    "@discordjs/voice": "^0.16.0",
+    "@distube/ytdl-core": "^4.11.7",
+    "discord-player": "^6.1.1",
+    "discord.js": "^14.9.0",
+    "dotenv": "^16.0.3",
+    "ffmpeg-static": "^5.1.0",
+    "play-dl": "^1.9.6"
+  }
+}
