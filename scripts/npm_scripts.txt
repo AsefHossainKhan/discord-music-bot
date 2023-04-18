@@ -1,0 +1,4 @@
+npm run cleanup-commands
+npm run deploy-commands
+npm run deploy-commands-array
+npm start
