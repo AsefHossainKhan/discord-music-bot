@@ -106,7 +106,7 @@ module.exports = {
       let url = interaction.options.getString('searchterms')
       const result = await player.search(url, {
         requestedBy: interaction.user,
-        searchEngine: QueryType.AUTO,
+        searchEngine: QueryType.YOUTUBE,
       })
 
       // finish if no tracks were found
