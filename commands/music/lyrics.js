@@ -10,8 +10,7 @@ module.exports = {
     const player = useMasterPlayer()
     const queue = player.nodes.get(interaction.guildId)
     const currentTrack = queue.currentTrack
-    const lyricsFinder = lyricsExtractor(
-      'eG3VgV8zGnjerZ4_cvEjQAGOJJ_hpaQymYsT9bcqo1r6i42HVMumxY7GpikLEslT')
+    const lyricsFinder = lyricsExtractor(process.env.LYRICS_API_KEY)
 
     const lyrics = await lyricsFinder.search(currentTrack.title).
       catch(() => null)
