@@ -4,7 +4,7 @@ const { QueryType, useMainPlayer } = require('discord-player')
 
 module.exports = {
   data: new SlashCommandBuilder().setName('play').
-    setDescription('Play a song from YouTube.').
+    setDescription('Play songs from YouTube').
     addSubcommand((subcommand) =>
       subcommand.setName('search').
         setDescription('Searches for a song and plays it').
@@ -16,7 +16,7 @@ module.exports = {
     ).
     addSubcommand((subcommand) =>
       subcommand.setName('playlist').
-        setDescription('Plays a playlist from YT').
+        setDescription('Plays a playlist from YT playlist link').
         addStringOption((option) =>
           option.setName('url').
             setDescription('the playlist\'s url').
@@ -24,8 +24,8 @@ module.exports = {
         ),
     ).
     addSubcommand((subcommand) =>
-      subcommand.setName('song').
-        setDescription('Plays a single song from YT').
+      subcommand.setName('link').
+        setDescription('Plays a single song from the YT link/url').
         addStringOption((option) =>
           option.setName('url').
             setDescription('the song\'s url').
@@ -66,7 +66,7 @@ module.exports = {
 
     let embed = new EmbedBuilder()
 
-    if (interaction.options.getSubcommand() === 'song') {
+    if (interaction.options.getSubcommand() === 'link') {
       let url = interaction.options.getString('url')
 
       // Search for the song using the discord-player
