@@ -4,7 +4,7 @@ const { useMainPlayer } = require('discord-player')
 
 module.exports = {
   data: new SlashCommandBuilder().setName('queue').
-    setDescription('shows first 10 songs in the queue'),
+    setDescription('Shows first 10 songs in the queue'),
 
   async execute(interaction) {
     const player = useMainPlayer()
@@ -29,7 +29,7 @@ module.exports = {
           (currentSong
             ? `\`[${currentSong.duration}]\` ${currentSong.title} - <@${currentSong.requestedBy.id}>`
             : 'None') +
-          `\n\n**Queue**\n${queueString}`,
+          (queue.tracks.data.length > 0 ? `\n\n**Queue**\n${queueString}` : "\n\n**No more tracks in queue**"),
         ).setThumbnail(currentSong.thumbnail),
       ],
     })

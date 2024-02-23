@@ -4,7 +4,7 @@ const { QueryType, useMainPlayer } = require('discord-player')
 
 module.exports = {
   data: new SlashCommandBuilder().setName('play').
-    setDescription('play a song from YouTube.').
+    setDescription('Play a song from YouTube.').
     addSubcommand((subcommand) =>
       subcommand.setName('search').
         setDescription('Searches for a song and plays it').
