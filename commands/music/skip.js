@@ -1,13 +1,13 @@
 const { SlashCommandBuilder } = require('@discordjs/builders')
 const { EmbedBuilder } = require('discord.js')
-const { useMasterPlayer } = require('discord-player')
+const { useMainPlayer } = require('discord-player')
 
 module.exports = {
   data: new SlashCommandBuilder().setName('skip').
     setDescription('Skips the current song'),
 
-  async execute (interaction) {
-    const player = useMasterPlayer()
+  async execute(interaction) {
+    const player = useMainPlayer()
 
     // Get the queue for the server
     const queue = player.nodes.get(interaction.guildId)

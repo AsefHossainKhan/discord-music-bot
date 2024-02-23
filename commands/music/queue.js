@@ -1,13 +1,13 @@
 const { SlashCommandBuilder } = require('@discordjs/builders')
 const { EmbedBuilder } = require('discord.js')
-const { useMasterPlayer } = require('discord-player')
+const { useMainPlayer } = require('discord-player')
 
 module.exports = {
   data: new SlashCommandBuilder().setName('queue').
     setDescription('shows first 10 songs in the queue'),
 
-  async execute (interaction) {
-    const player = useMasterPlayer()
+  async execute(interaction) {
+    const player = useMainPlayer()
     const queue = player.nodes.get(interaction.guildId)
 
     // check if there are songs in the queue

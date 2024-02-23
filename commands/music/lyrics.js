@@ -1,13 +1,13 @@
 const { SlashCommandBuilder } = require('@discordjs/builders')
 const { EmbedBuilder } = require('discord.js')
 const { lyricsExtractor } = require('@discord-player/extractor')
-const { useMasterPlayer } = require('discord-player')
+const { useMainPlayer } = require('discord-player')
 
 module.exports = {
   data: new SlashCommandBuilder().setName('lyrics').
     setDescription('Gets the lyrics of the song'),
-  async execute (interaction) {
-    const player = useMasterPlayer()
+  async execute(interaction) {
+    const player = useMainPlayer()
     const queue = player.nodes.get(interaction.guildId)
     const currentTrack = queue.currentTrack
     const lyricsFinder = lyricsExtractor(process.env.LYRICS_API_KEY)

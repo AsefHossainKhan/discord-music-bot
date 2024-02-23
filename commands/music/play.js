@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders')
 const { EmbedBuilder } = require('discord.js')
-const { QueryType, useMasterPlayer } = require('discord-player')
+const { QueryType, useMainPlayer } = require('discord-player')
 
 module.exports = {
   data: new SlashCommandBuilder().setName('play').
@@ -32,8 +32,10 @@ module.exports = {
             setRequired(true),
         ),
     ),
-  async execute (interaction) {
-    const player = useMasterPlayer()
+  async execute(interaction) {
+    const player = useMainPlayer()
+
+    await player.extractors.loadDefault()
 
     // Make sure the user is inside a voice channel
     if (!interaction.member.voice.channel)
