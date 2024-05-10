@@ -2,7 +2,7 @@
 module.exports = {
   name: 'playerStart',
   player: true,
-  execute (queue, track) {
+  execute (queue: any, track: any) {
     // ENTER WHATEVER YOU WANT
     //   queue.metadata.channel.send(`Started playing **${track.title}**!`);
   },
