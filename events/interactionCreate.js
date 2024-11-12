@@ -1,48 +1,48 @@
-const { Events } = require('discord.js')
+const { Events } = require("discord.js");
 
 module.exports = {
   name: Events.InteractionCreate,
   async execute(interaction) {
-    if (!interaction.isChatInputCommand()) return
+    if (!interaction.isChatInputCommand()) return;
 
-    const command = interaction.client.commands.get(interaction.commandName)
+    const command = interaction.client.commands.get(interaction.commandName);
 
     if (!command) {
       console.error(
-        `No command matching ${interaction.commandName} was found.`,
-      )
-      return
+        `No command matching ${interaction.commandName} was found.`
+      );
+      return;
     }
 
     try {
-      await command.execute(interaction)
+      await command.execute(interaction);
     } catch (error) {
-      console.error(`Error executing ${interaction.commandName}`)
-      console.error(error)
-      await reply(interaction)
+      // console.error(`Error executing ${interaction.commandName}`)
+      // console.error(error)
+      await reply(interaction);
     }
   },
-}
+};
 
 async function reply(interaction) {
   try {
     await interaction.reply({
       content: `There was an error executing ${interaction.commandName} command`,
-    })
+    });
   } catch (error) {
-    console.error(error)
+    // console.error(error);
     try {
       await interaction.followUp({
         content: `There was an error executing ${interaction.commandName} command`,
-      })
+      });
     } catch (error) {
-      console.error(error)
+      // console.error(error);
       try {
         await interaction.editReply({
           content: `There was an error executing ${interaction.commandName} command`,
-        })
+        });
       } catch (error) {
-        console.error(error)
+        // console.error(error);
       }
     }
   }

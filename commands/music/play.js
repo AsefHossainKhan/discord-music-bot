@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders')
 const { EmbedBuilder } = require('discord.js')
 const { QueryType, useMainPlayer } = require('discord-player')
+const { YoutubeiExtractor } = require("discord-player-youtubei")
 
 module.exports = {
   data: new SlashCommandBuilder().setName('play').
@@ -35,7 +36,12 @@ module.exports = {
   async execute(interaction) {
     const player = useMainPlayer()
 
-    await player.extractors.loadDefault()
+    const youtubeAuth = "access_token=ya29.a0AcM612w8RC5yRXptev6YRPwjTQnOav7ab4QpZlj0l3JSfv0IihlHJl_mMyAdlH_0Vs9TDIvR7zyi5uPQdH6mnRXwrNBFw1jOvFleBOy1GfGCwszH1OQdk5vsVRVo8Vvmo5rU3F8kqlFcj0V0k_qhUAUfJfxOrAoBe6orY8yRPsRLn1l2aCgYKAScSARESFQHGX2Mi8vc4P3PbTAT5IH6RBv0fXQ0183; refresh_token=1//0gsQEZhQaboqMCgYIARAAGBASNwF-L9IrLjwJGIrMdiCfWzZ8buRzetx8hQi8N842rL0hphgbk-O3y-mcZ7kIMaO9jkAVSn0tijs; scope=https://www.googleapis.com/auth/youtube-paid-content https://www.googleapis.com/auth/youtube; token_type=Bearer; expiry_date=2024-08-12T12:00:51.177Z";
+    player.extractors.register(YoutubeiExtractor, {
+      authentication: youtubeAuth
+    })
+
+    await player.extractors.loadDefault((ext) => !['YouTubeExtractor'].includes(ext));
 
     // Make sure the user is inside a voice channel
     if (!interaction.member.voice.channel)

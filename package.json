@@ -14,12 +14,11 @@
   "author": "Asef Hossain Khan",
   "license": "ISC",
   "dependencies": {
-    "@discord-player/extractor": "^4.4.6",
-    "@discordjs/builders": "^1.7.0",
-    "discord-player": "^6.6.7",
-    "discord.js": "^14.14.1",
-    "dotenv": "^16.0.3",
-    "mediaplex": "^0.0.9",
-    "play-dl": "^1.9.6"
+    "@discordjs/builders": "^1.8.2",
+    "discord-player": "^6.7.1",
+    "discord-player-youtubei": "^1.2.6",
+    "discord.js": "^14.15.3",
+    "dotenv": "^16.4.5",
+    "mediaplex": "^0.0.9"
   }
 }
