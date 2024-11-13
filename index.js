@@ -4,6 +4,7 @@ const fs = require("node:fs");
 const path = require("node:path");
 const { Client, Collection, Events, GatewayIntentBits } = require("discord.js");
 const { Player } = require("discord-player");
+const { YoutubeiExtractor } = require("discord-player-youtubei");
 
 // Create a new client instance
 const client = new Client({
@@ -22,6 +23,11 @@ const client = new Client({
 });
 
 const player = Player.singleton(client);
+
+const youtubeAuth = process.env.Y_TOKEN;
+player.extractors.register(YoutubeiExtractor, {
+  authentication: youtubeAuth,
+});
 
 client.commands = new Collection();
 const foldersPath = path.join(__dirname, "commands");

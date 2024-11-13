@@ -30,7 +30,7 @@ async function reply(interaction) {
       content: `There was an error executing ${interaction.commandName} command`,
     });
   } catch (error) {
-    // console.error(error);
+    console.error(error);
     try {
       await interaction.followUp({
         content: `There was an error executing ${interaction.commandName} command`,
